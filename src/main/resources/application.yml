@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: common-jdk25
+  profiles:
+    active: local
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Seoul
+    serialization:
+      write-dates-as-timestamps: false
+
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.hibernate: INFO
+
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+# Actuator & Micrometer Tracing 설정
+management:
+  tracing:
+    sampling:
+      probability: 1.0 # 1.0=100% 추적
+  endpoints:
+    web:
+      exposure:
+        include: "*"

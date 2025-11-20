@@ -1,3 +1,6 @@
-/gradlew text eol=lf
+# 모든 텍스트 파일은 저장소에 올라갈 때 LF로 변환된다.
+# 윈도우에서 체크아웃 받을 땐 CRLF로 자동 변환됨 (Auto CRLF)
+* text=auto eol=lf
+
 *.bat text eol=crlf
 *.jar binary
