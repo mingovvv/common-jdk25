@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mingovvv.common.filter.wrapper.CustomRequestWrapper;
 import mingovvv.common.utils.MDCUtil;
+import mingovvv.common.utils.NetworkUtil;
 import mingovvv.common.utils.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.Ordered;
@@ -137,7 +138,7 @@ public class AccessLogFilter extends OncePerRequestFilter implements Ordered {
         MDCUtil.setValue(MDCUtil.REQUEST_START_TIME, String.valueOf(startTime));
         MDCUtil.setValue(MDCUtil.REQUEST_URI, request.getRequestURI());
         MDCUtil.setValue(MDCUtil.REQUEST_QUERY_STRING, request.getQueryString());
-        MDCUtil.setValue(MDCUtil.ACCESS_IP_ADDRESS, request.getRemoteAddr());
+        MDCUtil.setValue(MDCUtil.ACCESS_IP_ADDRESS, NetworkUtil.getClientIp(request));
     }
 
 
@@ -148,7 +149,7 @@ public class AccessLogFilter extends OncePerRequestFilter implements Ordered {
      */
     private void logRequestBasic(HttpServletRequest request) {
         String uri = buildUriWithQuery(request.getRequestURI(), request.getQueryString());
-        log.info("req uri={}, method={}, ip={}", uri, request.getMethod(), request.getRemoteAddr());
+        log.info("req uri={}, method={}, ip={}", uri, request.getMethod(), NetworkUtil.getClientIp(request));
     }
 
     /**
@@ -160,7 +161,7 @@ public class AccessLogFilter extends OncePerRequestFilter implements Ordered {
         String uri = buildUriWithQuery(request.getRequestURI(), request.getQueryString());
         String body = extractBody(request);
 
-        log.info("req uri={}, method={}, body={}, ip={}", uri, request.getMethod(), body, request.getRemoteAddr());
+        log.info("req uri={}, method={}, body={}, ip={}", uri, request.getMethod(), body, NetworkUtil.getClientIp(request));
     }
 
     /**
