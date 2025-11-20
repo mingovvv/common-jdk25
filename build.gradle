@@ -41,6 +41,8 @@ dependencies {
 
     // P6Spy 대체 DataSource-Proxy 사용
     implementation 'com.github.gavlyukovskiy:datasource-proxy-spring-boot-starter:1.12.0'
+
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.14'
 }
 
 tasks.named('test') {
