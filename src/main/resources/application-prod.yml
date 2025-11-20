@@ -35,6 +35,14 @@ decorator:
     #     slow-query-threshold: 3000
     #     log-level: warn
 
+api:
+  test-client:
+    url: aaa
+    connection-timeout: 1s
+    read-timeout: 10s
+    api-key: bbb
+
+
 # Actuator 보안 강화 (꼭 필요한 것만 노출)
 management:
   endpoints:

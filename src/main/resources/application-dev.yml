@@ -27,6 +27,14 @@ decorator:
         enable-logging: true
         log-level: info
 
+api:
+  test-client:
+    url: aaa
+    connection-timeout: 1s
+    read-timeout: 10s
+    api-key: bbb
+
+
 logging:
   level:
     mingovvv: DEBUG # 개발 서버까지는 디버그 로그 확인

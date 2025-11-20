@@ -39,6 +39,13 @@ decorator:
         enable-logging: true
         log-level: info
 
+api:
+  test-client:
+    url: aaa
+    connection-timeout: 1s
+    read-timeout: 10s
+    api-key: bbb
+
 logging:
   level:
     mingovvv: DEBUG
