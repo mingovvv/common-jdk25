@@ -2,29 +2,35 @@ package mingovvv.common.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * JSON 직렬화/역직렬화를 위한 유틸리티 클래스
+ * <p>
+ * Spring Bean으로 관리되는 ObjectMapper를 사용하여 thread-safety와 설정 일관성을 보장합니다.
+ * 기존 static 메서드 호출 방식을 유지하면서도 Bean 관리의 이점을 활용합니다.
+ */
 @Slf4j
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Component
 public class JsonUtil {
 
-    private static final ObjectMapper objectMapper = new ObjectMapper()
-        .registerModules(new ParameterNamesModule(), new Jdk8Module(), new JavaTimeModule())
-        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-        .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
-        .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+    private static ObjectMapper objectMapper;
+
+    /**
+     * Spring Bean으로 관리되는 ObjectMapper를 주입받아 static 필드에 할당합니다.
+     * 이를 통해 기존 static 메서드 호출 방식을 유지하면서도 Bean 관리의 이점을 활용할 수 있습니다.
+     *
+     * @param objectMapper JacksonConfig에서 생성된 ObjectMapper Bean
+     */
+    public JsonUtil(ObjectMapper objectMapper) {
+        JsonUtil.objectMapper = objectMapper;
+    }
 
     /**
      * Object -> JSON String
@@ -81,7 +87,6 @@ public class JsonUtil {
 
     /**
      * JSON String -> JsonNode (트리 구조 탐색용)
-     * 밍고가 원했던 기능 부활!
      */
     public static JsonNode readTree(String json) {
         if (json == null || json.isBlank()) return null;
@@ -95,7 +100,6 @@ public class JsonUtil {
 
     /**
      * ObjectNode 생성 (JSON 조립용)
-     * 밍고가 원했던 기능 부활!
      */
     public static ObjectNode createNode() {
         return objectMapper.createObjectNode();

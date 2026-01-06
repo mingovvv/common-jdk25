@@ -32,6 +32,12 @@ public class ResultCode {
         AUTH_TOKEN_INVALID("AUTH-003", "Invalid token.", HttpStatus.UNAUTHORIZED), // 401
         AUTH_LOGIN_FAILED("AUTH-004", "Login failed. Check your ID or password.", HttpStatus.UNAUTHORIZED), // 401
 
+        // OAUTH: OAuth 2.0 관련 오류
+        OAUTH_UNSUPPORTED_GRANT_TYPE("OAUTH-001", "Unsupported grant_type.", HttpStatus.BAD_REQUEST), // 400
+        OAUTH_INVALID_CLIENT("OAUTH-002", "Invalid client_id or client_secret.", HttpStatus.UNAUTHORIZED), // 401
+        OAUTH_CLIENT_DISABLED("OAUTH-003", "Client is disabled.", HttpStatus.FORBIDDEN), // 403
+        OAUTH_INVALID_SCOPE("OAUTH-004", "Invalid scope.", HttpStatus.BAD_REQUEST), // 400
+
         // ACCESS: 인가 (Authorization)
         ACCESS_DENIED("ACCESS-001", "Access denied.", HttpStatus.FORBIDDEN), // 403
         ACCESS_IP_NOT_ALLOWED("ACCESS-002", "Access denied from this IP address.", HttpStatus.FORBIDDEN), // 403
@@ -43,6 +49,7 @@ public class ResultCode {
         REQ_INVALID_FORMAT("REQ-004", "Invalid format.", HttpStatus.BAD_REQUEST), // 400
         REQ_METHOD_NOT_ALLOWED("REQ-006", "Method not allowed.", HttpStatus.METHOD_NOT_ALLOWED), // 405
         REQ_UNSUPPORTED_MEDIA_TYPE("REQ-007", "Unsupported media type.", HttpStatus.UNSUPPORTED_MEDIA_TYPE), // 415 (ex: json 기대했는데 text 보냄)
+        REQ_RATE_LIMITED("REQ-008", "Too many requests.", HttpStatus.TOO_MANY_REQUESTS), // 429
 
         // RSC: 리소스 오류
         RSC_NOT_FOUND("RSC-001", "Resource not found.", HttpStatus.NOT_FOUND), // 404

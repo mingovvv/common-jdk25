@@ -12,6 +12,7 @@ import mingovvv.common.utils.NetworkUtil;
 import mingovvv.common.utils.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
@@ -29,9 +30,13 @@ import java.util.regex.Pattern;
  * <p>
  * 요청의 유형(Multipart, Stream, General)에 따라 바디 로깅 전략을 다르게 가져갑니다.
  * MDC를 활용하여 요청 컨텍스트 정보를 관리합니다.
+ * <p>
+ * 실행 순서: HIGHEST_PRECEDENCE + 1 (ExceptionHandlerFilter 다음에 실행)
+ * - ExceptionHandlerFilter → AccessLogFilter → 기타 필터들
  */
 @Slf4j
 @Component
+@Order(Ordered.HIGHEST_PRECEDENCE + 1)
 @RequiredArgsConstructor
 public class AccessLogFilter extends OncePerRequestFilter implements Ordered {
 
